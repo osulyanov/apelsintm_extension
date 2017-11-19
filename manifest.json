@@ -1,0 +1,20 @@
+{
+  "name": "Apelsintm balancer Plugin",
+  "description": "🤟",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "permissions": [
+    "*://*.yandex.ru/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.agent.a055.ru:*/*"
+      ],
+      "js": [
+        "jquery-3.2.1.min.js",
+        "script.js"
+      ]
+    }
+  ]
+}
