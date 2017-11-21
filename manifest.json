@@ -4,8 +4,9 @@
   "version": "0.0.1",
   "manifest_version": 2,
   "permissions": [
-    "*://*.yandex.ru/*"
+    "storage"
   ],
+  "options_page": "options.html",
   "content_scripts": [
     {
       "matches": [
