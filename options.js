@@ -6,7 +6,7 @@ function save_options() {
         interval: interval,
         step: step
     };
-    for (var i = 1; i <= 21; i++) {
+    for (var i = 1; i <= 22; i++) {
         storage_options['g' + i + 'min'] = document.getElementById('g' + i + 'min').value;
         // storage_options['g' + i + 'max'] = document.getElementById('g' + i + 'max').value;
     }
@@ -27,14 +27,14 @@ function restore_options() {
         interval: 5,
         step: 100
     };
-    for (var i = 1; i <= 21; i++) {
-        default_options['g' + i + 'min'] = 10000;
+    for (var i = 1; i <= 22; i++) {
+        default_options['g' + i + 'min'] = 0;
         // default_options['g' + i + 'max'] = 100000;
     }
     chrome.storage.sync.get(default_options, function(items) {
         document.getElementById('interval').value = items.interval;
         document.getElementById('step').value = items.step;
-        for (var i = 1; i <= 21; i++) {
+        for (var i = 1; i <= 22; i++) {
             document.getElementById('g' + i + 'min').value = items['g' + i + 'min'];
             // document.getElementById('g' + i + 'max').value = items['g' + i + 'max'];
         }
