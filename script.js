@@ -63,21 +63,24 @@ console.log(cities);
 
 $(function() {
     $.each(cities, function (num, city_options) {
-        console.log('Check group ' + num);
+        console.group('Check group ' + num);
         console.log(city_options);
 
         var current_amount = getCityAmount(num);
         console.log(current_amount);
         if(current_amount <= city_options['min']) {
-            console.log('Fix');
+            var desired_amount = (city_options['min'] * 100 - current_amount * 100 + options['step'] * 100) / 100;
+            console.warn('Fix: add ' + desired_amount);
+
         } else {
             console.log('Ok');
         }
+        console.groupEnd();
     });
 
 });
 
 function getCityAmount(num) {
-    var line = $("tr:contains('Группа " + num + ". ')");
+    var line = $("table table table tr:contains('Группа " + num + ". ')");
     return parseFloat($("td:nth-child(2)", line).text());
 }
