@@ -17,5 +17,9 @@
         "script.js"
       ]
     }
-  ]
+  ],
+  "browser_action": {
+    "default_icon": "apelsin.png",
+    "default_title": "Apelsintm balancer Plugin"
+  }
 }
