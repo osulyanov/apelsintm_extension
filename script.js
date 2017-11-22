@@ -37,19 +37,18 @@ function restore_options() {
         interval: 5,
         step: 100
     };
-    for (var i = 1; i <= 21; i++) {
+    for (var i = 0; i <= 21; i++) {
         default_options['g' + i + 'min'] = 10000;
-        // default_options['g' + i + 'max'] = 100000;
     }
     chrome.storage.sync.get(default_options, function (items) {
+        console.log(items);
         options['interval'] = items.interval;
         options['step'] = items.step;
-        for (var i = 1; i <= 21; i++) {
+        for (var i = 0; i <= 21; i++) {
             options['g' + i + 'min'] = items['g' + i + 'min'];
-            // options['g' + i + 'max'] = items['g' + i + 'max'];
-
-            cities[i]['min'] = items['g' + i + 'min'];
-            cities[i]['max'] = items['g' + i + 'max'];
+            if(i > 0) {
+                cities[i]['min'] = items['g' + i + 'min'];
+            }
         }
         console.log('Options updated:');
         console.log(options)
@@ -61,17 +60,32 @@ restore_options();
 
 $(function () {
     if($('a:contains("Группа 0. Супергруппа")').is('a')) {
+        checkSupergroup();
         checkGroups();
     }
 });
 
-function checkGroups() {
+function checkSupergroup() {
     console.log('Start balancing at ' + currentTime());
+    console.group('Check group 0');
+    var current_amount = getCityAmount(0);
+    console.log(current_amount);
+    var minAmount = options['g0min'];
+    if (current_amount <= minAmount) {
+        var desired_amount = (minAmount * 100 - current_amount * 100 + options['step'] * 100) / 100;
+        console.warn('Fix: add ' + desired_amount);
+        // addAmount(city_options['n'], desired_amount);
+    } else {
+        console.log('Ok');
+    }
+    console.groupEnd();
+}
 
+function checkGroups() {
     $.each(cities, function (num, city_options) {
         console.group('Check group ' + num);
         console.log(city_options);
-        if (city_options['min'] == 0) {
+        if (city_options['min'] <= 0) {
             console.log('Off');
             console.groupEnd();
             return true;
