@@ -8,7 +8,6 @@ function save_options() {
     };
     for (var i = 0; i <= 22; i++) {
         storage_options['g' + i + 'min'] = document.getElementById('g' + i + 'min').value;
-        // storage_options['g' + i + 'max'] = document.getElementById('g' + i + 'max').value;
     }
     chrome.storage.sync.set(storage_options, function() {
         // Update status to let user know options were saved.
@@ -25,18 +24,16 @@ function save_options() {
 function restore_options() {
     var default_options = {
         interval: 5,
-        step: 100
+        step: 0
     };
     for (var i = 0; i <= 22; i++) {
         default_options['g' + i + 'min'] = 0;
-        // default_options['g' + i + 'max'] = 100000;
     }
     chrome.storage.sync.get(default_options, function(items) {
         document.getElementById('interval').value = items.interval;
         document.getElementById('step').value = items.step;
         for (var i = 0; i <= 22; i++) {
             document.getElementById('g' + i + 'min').value = items['g' + i + 'min'];
-            // document.getElementById('g' + i + 'max').value = items['g' + i + 'max'];
         }
     });
 }
