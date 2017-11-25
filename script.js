@@ -123,22 +123,32 @@ function fixGroup(i, amount) {
     // пополнить неоткуда, закроем цикл,
     // ошибку показали уже в методе findOverGroup()
     if(overGroupIndex === false) return false;
-    // если профицит в не в супергруппе,
+    // если профицит не в супергруппе,
     // то снимем его в супергруппу
+    var proficiteAmount = (cities[overGroupIndex]['current'] * 100 - cities[overGroupIndex]['min'] * 100) / 100;
+    console.log('Профицит группы ' + proficiteAmount);
+    if(proficiteAmount >= amount) {
+        var amountToFix = amount;
+        console.log('Достаточно, перекинум всю сумму дефицита ' + amount);
+    } else {
+        var amountToFix = proficiteAmount;
+        console.log('Недостаточно, перекинум лишь всю сумму профицита ' + proficiteAmount);
+    }
+
     if(overGroupIndex > 0) {
-        debitAmount(overGroupIndex, amount);
+        debitAmount(overGroupIndex, amountToFix);
     }
     // если дефицит не в Супергруппе,
     // то пополним её из супергруппы
     if(i > 0) {
-        addAmount(i, amount);
+        addAmount(i, amountToFix);
     }
 }
 
 function findOverGroup() {
     var n = null;
     var max = 0;
-    console.groupCollapsed("Поиск группы с профицитом");
+    console.group("Поиск группы с профицитом"); // Collapsed
     for (var i = 0; i <= 22; i++) {
         // если у группы нет профицита,
         // пропустим её
@@ -163,6 +173,7 @@ function findOverGroup() {
     } else {
         // иначе выведем ошибку
         // и вернём false
+        console.log('Нет групп с избытком');
         alert('Нет групп с избытком');
         return false;
     }
@@ -171,8 +182,8 @@ function findOverGroup() {
 function debitAmount(i, amount) {
     console.log('Снимем с группы ' + i + ' ' + amount);
 
-    cities[0]['current'] = cities[0]['current'] + amount;
-    cities[i]['current'] = cities[i]['current'] - amount;
+    cities[0]['current'] = (cities[0]['current'] * 100 + amount * 100) / 100;
+    cities[i]['current'] = (cities[i]['current'] * 100 - amount * 100) / 100;
 
     var n = cities[i]['n'];
 
@@ -199,8 +210,8 @@ function debitAmount(i, amount) {
 function addAmount(i, amount) {
     console.log('Добавим на группу ' + i + ' ' + amount);
 
-    cities[0]['current'] = cities[0]['current'] - amount;
-    cities[i]['current'] = cities[i]['current'] + amount;
+    cities[0]['current'] = (cities[0]['current'] * 100 - amount * 100) / 100;
+    cities[i]['current'] = (cities[i]['current'] * 100 + amount * 100) / 100;
 
     var n = cities[i]['n'];
 
