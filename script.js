@@ -76,7 +76,7 @@ function checkGroups() {
         console.group('Check group ' + i + ' with options: ', city_options);
 
         // если группа выключена в настройках расширения, пропустим её
-        if (city_options['min'] <= 0) {
+        if (city_options['min'] == 0) {
             console.log('Off');
             console.groupEnd();
             return true;
