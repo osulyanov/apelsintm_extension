@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Getting Started Extension's Popup</title>
+    <meta charset="utf-8">
+    <style type="text/css">
+      body {
+        margin: 10px;
+        white-space: nowrap;
+      }
+
+      h1 {
+        font-size: 15px;
+      }
+
+      #container {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Расширение Apelsintm</h1>
+    <div id="container">
+      <label for="is_on_1">Включить
+      <input title="Включить расширение" type="radio" name="is_on" id="is_on_1" value="1">
+      </label>
+      <label for="is_on_0">Выключить
+      <input title="Включить расширение" type="radio" name="is_on" id="is_on_0" value="0">
+      </label>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>

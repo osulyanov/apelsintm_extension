@@ -39,8 +39,8 @@ document.addEventListener('DOMContentLoaded', restore_options);
 restore_options();
 
 $(function () {
-    // исли мы на странице с группами ,проведём балансировку
-    if ($('a:contains("Группа 0. Супергруппа")').is('a')) {
+    // исли мы на странице с группами, проведём балансировку
+    if (options['is_on'] && $('a:contains("Группа 0. Супергруппа")').is('a')) {
         console.log('Cities data: ', cities);
         checkGroups();
     }
@@ -50,6 +50,7 @@ $(function () {
 function restore_options() {
     // настройки по умолчанию
     var default_options = {
+        is_on: false,
         interval: 5,
         step: 0
     };
@@ -58,6 +59,7 @@ function restore_options() {
     // получим настройки расширения из хранилища Хрома
     chrome.storage.sync.get(default_options, function (items) {
         console.log('Saved options: ', items);
+        options['is_on'] = items.is_on;
         options['interval'] = items.interval;
         options['step'] = items.step;
         for (var i = 0; i <= 22; i++) {
