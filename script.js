@@ -109,6 +109,7 @@ function checkGroups() {
 
     // покажем время завершения балансировки в заголовке
     $('b:contains("Список групп")').text('Список групп (Последняя балансировка завершена в ' + currentTime() + ')');
+    addColumn();
 
     // запустим таймер и перезагрузим страницу чтобы повторить балансировку
     var interval = options['interval'] * 60 * 1000;
@@ -234,6 +235,22 @@ function addAmount(i, amount) {
             console.log('Completed with status: ' + status);
         }
     });
+}
+
+function addColumn() {
+    $('<td/>', {
+        text: 'Новые значения'
+    }).insertAfter(
+        $("table table table tr td:contains('Наименование')")
+    );
+
+    for (var i = 0; i <= 22; i++) {
+        $('<td/>', {
+            text: cities[i]['current']
+        }).insertAfter(
+            $("table table table tr td:contains('Группа " + i + ". ')")
+        );
+    }
 }
 
 function getCityAmount(num) {
